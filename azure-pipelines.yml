@@ -108,5 +108,13 @@ steps:
     curl -SL https://firebase.tools | bash
     firebase --version
     echo 'Deploying to firebase'
-    
+    firebase appdistribution:distribute $(build.artifactStaginDirectory)/build/app/outputs/fluter-apk/app-release.apk  \
+    --token $(firebaseToken)  \
+    --app $(firebaseAndroidAppId)  \
+    --release-notes 'Deploy apk from Azure devops'
+  displayName: 'Deploy app to firebase'
 
+- task: PublishBuildArtifacts@1
+  inputs:
+    artifactName: 'drop' 
+  displayName: 'Publish artifact'
