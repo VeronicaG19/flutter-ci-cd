@@ -80,35 +80,3 @@ steps:
     target: apk
     projectDirectory: $(projectDirectory)
   displayName: 'Build app'
-
-- task: AndroidSigning@3
-  displayName: 'Signing and aligning APK file(s) **/*.apk'
-  inputs:
-    apkFiles: '**/*.apk'
-    apksign: false
-    apksignerKeystoreFile: people-app-upload-keystore.jks
-    apksignerKeystorePassword: '$(androidKeystorePassword)'
-    apksignerKeystoreAlias: '$(androidKeystoreAlias)'
-    apksignerKeyPassword: '$(androidKeystorePrivateKeyPassword)'
-
-- task: CopyFiles@2
-  inputs:
-    contents: '**/*.apk'
-    targetFolder: '$(build.artifactStagingDirectory)'
-  displayName: 'Copy app to artifacts directory'
-
-- script: |
-    echo 'Installing Firebase CLI...'
-    curl -sL https://firebase.tools | bash
-    firebase --version
-    echo 'Deploying to Firebase...'
-    firebase appdistribution:distribute $(build.artifactStagingDirectory)/build/app/outputs/flutter-apk/app-release.apk  \
-    --token $(firebaseToken)  \
-    --app $(firebaseAndroidAppId)  \
-    --release-notes 'Deploy apk from Azure DevOps'
-  displayName: 'Deploy app to Firebase'
-
-- task: PublishBuildArtifacts@1
-  inputs:
-    artifactName: 'drop'
-  displayName: 'Publish artifacts'
