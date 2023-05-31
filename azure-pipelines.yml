@@ -21,19 +21,19 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
-- task: FlutterInstall@1
+- task: FlutterInstall@0
   inputs:
     channel: 'stable'
     version: 'latest'
   displayName: 'Install latest Flutter SDK stable version'
 
-- task: FlutterAnalyzeTask@1
+- task: FlutterAnalyzeTask@0
   inputs:
     projectDirectory: '$(projectDirectory)'
     extraArgs: '--fatal-warnings'
   displayName: 'Run Flutter analyzer'
     
-- task: FlutterTest@1
+- task: FlutterTest@0
   inputs:
     generateCodeCoverageReport: true
     projectDirectory: '$(projectDirectory)'
@@ -75,7 +75,7 @@ steps:
     summaryFileLocation: '$(build.artifactStagingDirectory)/cobertura.xml'
   displayName: 'Publish code coverage results'
 
-- task: FlutterBuild@1
+- task: FlutterBuild@0
   inputs:
     target: apk
     projectDirectory: $(projectDirectory)
