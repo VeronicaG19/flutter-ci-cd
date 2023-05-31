@@ -85,7 +85,7 @@ steps:
   displayName: 'Signing and aligning APK file(s) **/*.apk'
   inputs:
     apkFiles: '**/*.apk'
-    apksign: true
+    apksign: false
     apksignerKeystoreFile: people-app-upload-keystore.jks
     apksignerKeystorePassword: '$(androidKeystorePassword)'
     apksignerKeystoreAlias: '$(androidKeystoreAlias)'
